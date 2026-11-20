@@ -22,11 +22,7 @@ def summarize(text: str) -> str:
     return f"Summarize the following text in one sentence:\n\n{text}"
 
 
-security = TransportSecuritySettings(
-    allowed_hosts=["claude.ai", "claude.ai:*", "127.0.0.1", "127.0.0.1:*"],
-    allowed_origins=["https://claude.ai", "https://localhost"],
-)
-app = mcp.streamable_http_app(transport_security=security)
+app = mcp.streamable_http_app()
 
 
 if __name__ == "__main__":
