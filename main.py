@@ -6,9 +6,8 @@ from mcp.server.transport_security import TransportSecuritySettings
 mcp = MCPServer("Demo")
 
 good_hosts = [
-    "claude.ai",
     "127.0.0.1",
-    "mcpplaygroundonline.com"
+    "gdata-mcp-testbed.vercel.app"
 ]
 
 
