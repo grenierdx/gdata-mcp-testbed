@@ -1,7 +1,15 @@
+from itertools import chain
+
 from mcp.server import MCPServer
 from mcp.server.transport_security import TransportSecuritySettings
 
 mcp = MCPServer("Demo")
+
+good_hosts = [
+    "claude.ai",
+    "127.0.0.1",
+    "mcpplaygroundonline.com"
+]
 
 
 @mcp.tool()
@@ -22,7 +30,11 @@ def summarize(text: str) -> str:
     return f"Summarize the following text in one sentence:\n\n{text}"
 
 
-app = mcp.streamable_http_app()
+security = TransportSecuritySettings(
+    allowed_hosts=list(chain.from_iterable(map(lambda s: [s, s + ":*"], good_hosts))),
+    allowed_origins=list(map(lambda s: "https://" + s, good_hosts)),
+)
+app = mcp.streamable_http_app(transport_security=security)
 
 
 if __name__ == "__main__":
